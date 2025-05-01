@@ -4,7 +4,7 @@
   become: false
   tasks:
 
-    - name: Pega as informações sobre o CV CV-RHEL8
+    - name: Pega as informações sobre o CV {{ nome_cv }}
       redhat.satellite.content_view_info:
         username: admin
         password: redhat
@@ -13,7 +13,7 @@
         validate_certs: false
       register: cv_info
 
-    - name: Só promove a última versão para a produção
+    - name: Só promove a última versão para o próximo ambiente do lifecycle path
       redhat.satellite.content_view_version:
         username: admin
         server_url: https://satellite.lab1.example.com
