@@ -8,13 +8,13 @@
       ansible.builtin.debug:
         var: survey_cvs
 
-    - name: Publica e promove para desenvolvimento
-      when: false
-      redhat.satellite.content_view_version:
-        username: admin
-        server_url: https://satellite.lab1.example.com
-        password: redhat
-        content_view: "{{ nome_cv }}"
-        organization: LAB1
-        validate_certs: false
-        lifecycle_environments: Desenvolvimento
+          #    - name: Publica e promove para desenvolvimento
+          #     loop: "{{ survey_cvs }}"
+          #     redhat.satellite.content_view_version:
+          #       username: admin
+          #       server_url: https://satellite.lab1.example.com
+          #       password: redhat
+          #       content_view: "{{ item }}"
+          #       organization: LAB1
+          #       validate_certs: false
+          #       lifecycle_environments: Desenvolvimento
