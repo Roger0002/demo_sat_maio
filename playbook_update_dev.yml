@@ -1,16 +1,45 @@
 ---
-- name: Play que realiza a atualização de SO das máquinas de desenvolvimento
-  hosts: qa1.lab1.example.com
+- name: Play que define quais serão as máquinas a serem atualizadas
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Define em caso de desenvolvimento
+      when: ambiente == Desenvolvimento
+      ansible.builtin.set_fact:
+        maquinas: dev[1-3]
+
+    - name: Define em caso de homologação
+      when: ambiente == Homologação
+      ansible.builtin.set_fact:
+        maquinas: qa[1-2]
+
+    - name: Define em caso de produção
+      when: ambiente == Produção
+      ansible.builtin.set_fact:
+        maquinas: prd[1-2]
+
+- name: Play que realiza a atualização de SO
+  hosts: "{{ hostvars['localhost']['maquinas'] }}.lab1.example.com"
   become: true
   gather_facts: false
   tasks:
 
+    - name: Teste
+      ansible.builtin.shell: uname -n
+      register: aaaa
+
+    - name: Mostra
+      ansible.builtin.debug:
+        var: aaaa
+
     - name: Atualiza o SO
+      when: false
       ansible.builtin.dnf:
         name: "*"
         state: latest
 
     - name: Verifica necessidade de restart, reiniciando a máquina se preciso
+      when: false
       block:
         - name: Verifica a necessidade de restart
           ansible.builtin.shell: needs-restarting --reboothint
