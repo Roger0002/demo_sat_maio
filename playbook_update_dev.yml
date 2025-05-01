@@ -1,0 +1,24 @@
+---
+- name: Play que realiza a atualização de SO das máquinas de desenvolvimento
+  hosts: qa1.lab1.example.com
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Atualiza o SO
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+
+    - name: Verifica necessidade de restart
+      ansible.builtin.shell: needs-restarting --reboothint
+      register: need_for_restart
+
+    - name: Mostra
+      ansible.builtin.debug:
+        var: need_for_restart
+
+    - name: Faz o reboot caso necessário
+      when: False
+      ansible.builtin.reboot:
+        reboot_timeout: 2700
+...
