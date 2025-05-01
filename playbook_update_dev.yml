@@ -4,17 +4,17 @@
   gather_facts: false
   tasks:
     - name: Define em caso de desenvolvimento
-      when: ambiente == Desenvolvimento
+      when: 'ambiente == "Desenvolvimento"'
       ansible.builtin.set_fact:
         maquinas: dev[1-3]
 
     - name: Define em caso de homologação
-      when: ambiente == Homologação
+      when: 'ambiente == "Homologação"'
       ansible.builtin.set_fact:
         maquinas: qa[1-2]
 
     - name: Define em caso de produção
-      when: ambiente == Produção
+      when: 'ambiente == "Produção"'
       ansible.builtin.set_fact:
         maquinas: prd[1-2]
 
