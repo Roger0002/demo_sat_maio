@@ -1,0 +1,21 @@
+---
+- name: Pega as informações sobre o CV {{ item }}
+  redhat.satellite.content_view_info:
+    username: admin
+    password: redhat
+    server_url: https://satellite.lab1.example.com
+    name: "{{ item }}"
+    validate_certs: false
+  register: cv_info
+
+- name: Só promove a última versão para o próximo ambiente do lifecycle path
+  redhat.satellite.content_view_version:
+    username: admin
+    server_url: https://satellite.lab1.example.com
+    password: redhat
+    content_view: "{{ item }}"
+    organization: LAB1
+    version: "{{ cv_info.content_view.latest_version }}"
+    validate_certs: false
+    lifecycle_environments: "{{ survey_lce }}"
+
