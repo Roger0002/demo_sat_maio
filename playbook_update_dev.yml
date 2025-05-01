@@ -24,22 +24,13 @@
   gather_facts: false
   tasks:
 
-    - name: Teste
-      ansible.builtin.shell: uname -n
-      register: aaaa
-
-    - name: Mostra
-      ansible.builtin.debug:
-        var: aaaa
-
     - name: Atualiza o SO
-      when: false
       ansible.builtin.dnf:
         name: "*"
         state: latest
 
     - name: Verifica necessidade de restart, reiniciando a máquina se preciso
-      when: false
+      when: 'desejo_reboot_automatico == "Sim"'
       block:
         - name: Verifica a necessidade de restart
           ansible.builtin.shell: needs-restarting --reboothint
