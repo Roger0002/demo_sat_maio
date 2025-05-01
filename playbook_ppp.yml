@@ -1,0 +1,15 @@
+- name: Play ublicador de nova versão de CV + Promoção para LCE
+  hosts: localhost
+  gather_facts: false
+  become: false
+  tasks:
+
+    - name: Publica e promove para desenvolvimento
+      redhat.satellite.content_view_version:
+        username: admin
+        server_url: https://satellite.lab1.example.com
+        password: redhat
+        content_view: "{{ nome_cv }}"
+        organization: LAB1
+        validate_certs: false
+        lifecycle_environments: Desenvolvimento

@@ -1,0 +1,25 @@
+ name: Play que promove para LCE
+  hosts: localhost
+  gather_facts: false
+  become: false
+  tasks:
+
+    - name: Pega as informações sobre o CV CV-RHEL8
+      redhat.satellite.content_view_info:
+        username: admin
+        password: redhat
+        server_url: https://satellite.lab1.example.com
+        name: "{{ nome_cv }}"
+        validate_certs: false
+      register: cv_info
+
+    - name: Só promove a última versão para a produção
+      redhat.satellite.content_view_version:
+        username: admin
+        server_url: https://satellite.lab1.example.com
+        password: redhat
+        content_view: "{{ nome_cv }}"
+        organization: LAB1
+        version: "{{ cv_info.content_view.latest_version }}"
+        validate_certs: false
+        lifecycle_environments: "{{ nome_lce }}"
