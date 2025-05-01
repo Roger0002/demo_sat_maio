@@ -4,6 +4,15 @@
   become: true
   gather_facts: false
   tasks:
+    - name: Verifica necessidade de restart
+      ansible.builtin.shell: needs-restarting --reboothint
+      register: need_for_restart
+
+    - name: Mostra
+      ansible.builtin.debug:
+        var: need_for_restart
+
+
     - name: Atualiza o SO
       ansible.builtin.dnf:
         name: "*"
