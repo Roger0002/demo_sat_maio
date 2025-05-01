@@ -4,7 +4,12 @@
   become: false
   tasks:
 
+    - name: Teste
+      ansible.builtin.debug:
+        var: survey_cvs
+
     - name: Publica e promove para desenvolvimento
+      when: false
       redhat.satellite.content_view_version:
         username: admin
         server_url: https://satellite.lab1.example.com
