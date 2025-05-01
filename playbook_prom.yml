@@ -1,4 +1,5 @@
- name: Play que promove para LCE
+---
+- name: Play que promove para LCE
   hosts: localhost
   gather_facts: false
   become: false
