@@ -1,4 +1,4 @@
-- name: Play Publicador de nova versão de CV + Promoção para LCE
+- name: Play publicador de nova versão de CV + Promoção para LCE
   hosts: localhost
   gather_facts: false
   become: false
